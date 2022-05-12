@@ -3,7 +3,7 @@
     <div class="infoBlock border-none lg:min-h-screen pt-4 pb-1 md:pt-10 md:pb-10 px-5 md:px-10">
       <header class="lg:mb-6">
         <div class="flex justify-center md:items-center mb-2">
-          <a href="//zksync.io" class="logo-container" target="_blank"><logo /></a>
+          <a href="/" class="logo-container" target="_blank"><logo /></a>
           <div
             class="brandContainer text-violet -dark text-2xl font-bold flex flex-col lg:flex-row items-end md:items-start md:gap-2 mr-5 lg:justify-start leading-1"
           >
@@ -22,9 +22,7 @@
             </div>
           </template>
           <template slot="left-bottom">
-            <div class="address">
-              {{ item.to }}
-            </div>
+            <div class="address">{{ item.unstoppable ? `(${item.unstoppable})` : "" }} {{ item.to }}</div>
           </template>
           <template slot="right-top">
             <div class="flex flex-col items-end whitespace-nowrap">

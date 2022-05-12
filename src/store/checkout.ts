@@ -1,13 +1,20 @@
 /* eslint-disable require-await */
 import { ActionTree, GetterTree, MutationTree } from "vuex";
-import { ZkSyncTransaction } from "zksync-checkout/build/types";
+// import { ZkSyncTransaction } from "zksync-checkout/build/types";
 import { closestPackableTransactionAmount, closestPackableTransactionFee, RestProvider } from "zksync";
 import { TokenSymbol, Address } from "zksync/build/types";
 import { BigNumber } from "ethers";
 import { ZkFee } from "@matterlabs/zksync-nuxt-core/types";
 import { RootState } from "~/store";
 import { TransactionData, TransactionFee, TotalByToken } from "@/types/index";
-
+interface ZkSyncTransaction {
+  from?: string;
+  to: string;
+  token: string;
+  amount: string;
+ description?: string;
+ unstoppable?:string;
+}
 export const state = () => ({
   linkCheckout: <boolean>false,
   isError: <boolean>false,

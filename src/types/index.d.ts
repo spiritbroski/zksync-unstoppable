@@ -1,13 +1,22 @@
 import { BigNumber } from "ethers";
 import { DecimalBalance } from "@matterlabs/zksync-nuxt-core/types";
-import { ZkSyncTransaction } from "zksync-checkout/build/types";
+// import { ZkSyncTransaction } from "zksync-checkout/build/types";
 import { TokenSymbol, Address } from "zksync/build/types";
 
 export type PaymentItem = {
+  unstoppableDomain?:string;
   address: Address;
   token: TokenSymbol;
   amount: DecimalBalance;
 };
+interface ZkSyncTransaction {
+  from?: string;
+  to: string;
+  token: string;
+  amount: string;
+ description?: string;
+ unstoppable?:string;
+}
 export type TransactionData = {
   transactions: Array<ZkSyncTransaction>;
   fromAddress: Address;

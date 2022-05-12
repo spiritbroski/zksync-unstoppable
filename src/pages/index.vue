@@ -242,7 +242,6 @@ import { transactionBatch } from "@/plugins/walletActions/transaction";
 import { TotalByToken, TransactionData } from "@/types";
 import connectedWallet from "@/blocks/connectedWallet.vue";
 import lineTableHeader from "@/blocks/lineTableHeader.vue";
-
 interface UpdatedFee {
   type: "batch" | "cpk";
   previous: BigNumberish;
@@ -354,6 +353,7 @@ export default Vue.extend({
     },
   },
   methods: {
+
     getTokenByID(id: number) {
       return this.$store.getters["zk-tokens/zkTokenByID"](id)?.symbol;
     },

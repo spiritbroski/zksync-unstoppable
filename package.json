@@ -120,7 +120,7 @@
     "*.{md,vue}": "yarn lint:spell-check"
   },
   "scripts": {
-    "local": "yarn ci:env 'rinkeby' 'dev' 1 1",
+    "local": "yarn ci:env 'ropsten-beta' 'dev' 1 1",
     "dev": "yarn local && nuxt",
     "generate": "nuxt generate ",
     "start": "yarn local && nuxt start",

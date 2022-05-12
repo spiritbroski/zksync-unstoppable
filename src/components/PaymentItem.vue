@@ -10,9 +10,9 @@
     </transition>
     <div class="w-full">
       <div class="label text-sm text-light">
-        <strong class="mobileOnly">Txn #{{ index + 1 }}:&nbsp;</strong>Receiver ETH address
+        <strong class="mobileOnly">Txn #{{ index + 1 }}:&nbsp;</strong>Receiver ETH address or Unstoppable Domain Name
       </div>
-      <address-input v-model="valNow.address" />
+      <address-input v-model="frimpong" @haha="folpi($event.address,$event.unstoppableAddress)"/>
     </div>
     <div class="md:pl-4 w-full md:w-auto">
       <div class="label text-sm text-light desktopOnly">&nbsp;</div>
@@ -31,6 +31,7 @@
 </template>
 
 <script lang="ts">
+
 import Vue, { PropOptions } from "vue";
 import { PaymentItem } from "@/types";
 
@@ -63,6 +64,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      frimpong: this.value.address,
       valNow: this.value as PaymentItem,
     };
   },
@@ -81,6 +83,10 @@ export default Vue.extend({
     },
   },
   methods: {
+    folpi(address:string,unstoppableAddress:string){
+this.valNow.address=address;
+this.valNow.unstoppableDomain=unstoppableAddress;
+    },
     focusedOnAmount(): void {
       // @ts-ignore
       (this.$refs.tokenDropdown as Vue)?.focusedOnAmount();

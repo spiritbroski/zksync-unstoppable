@@ -100,6 +100,7 @@
       <!-- eslint-disable-next-line vue/no-v-html -->
       <h2 class="mx-auto text-center zk-container headline big text-violet mb-3" v-html="createLinkBlockTitle" />
       <zk-defbtn v-if="!showAddLink" class="mx-auto mt-5" big @click="enableLink()">Try it now</zk-defbtn>
+
       <template v-if="showAddLink">
         <div v-for="index in payments.keys()" :key="index" class="paymentContainer w-full py-2 md:py-1">
           <payment-item
@@ -218,6 +219,7 @@ export default Vue.extend({
     },
   },
   methods: {
+
     deletePayment(index: number) {
       this.payments.splice(index, 1);
     },

@@ -17,18 +17,19 @@
       >
         <div class="flex items-center pr-4 select-none" @click="focusedOnDropdown">
           <div class="font-bold text-md md:text-lg pr-2 whitespace-nowrap">{{ value }}</div>
-          <i class="text-gray fal" :class="[{ 'fa-angle-down': !dropdownOpened }, { 'fa-angle-up': dropdownOpened }]" />
+          <!-- <i class="text-gray fal" :class="[{ 'fa-angle-down': !dropdownOpened }, { 'fa-angle-up': dropdownOpened }]" /> -->
         </div>
         <slot />
       </div>
     </div>
-    <template slot="popover">
+    <!-- <template slot="popover">
       <div ref="dropdownBody" class="dropdownBody border border-light rounded pb-2">
         <div class="searchField p-1 md:p-2">
           <zk-input
             v-model="dropdownSearch"
             class="bg-white"
             size="sm"
+
             :maxlength="10"
             placeholder="Search for token"
             @keyup.native="enter"
@@ -51,7 +52,7 @@
           </div>
         </div>
       </div>
-    </template>
+    </template> -->
   </v-popover>
 </template>
 

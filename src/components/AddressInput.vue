@@ -3,11 +3,15 @@
     <zk-input
       v-model="inputtedWallet"
       class="walletAddress"
-      :maxlength="45"
-      :error="!!error"
-      placeholder="0x address"
+      placeholder="0x address or Unstoppable Domain name"
       type="text"
     />
+
+    <div class="errorTextContainer" v-show="address">
+      <transition name="fadeFast">
+        <div class="errorText text-xs text-green text-left">{{ address }}</div>
+      </transition>
+    </div>
     <div class="errorTextContainer">
       <transition name="fadeFast">
         <div v-if="error" class="errorText text-xs text-red text-left">{{ error }}</div>
@@ -19,6 +23,7 @@
 <script lang="ts">
 import Vue, { PropOptions } from "vue";
 import { DecimalBalance } from "@matterlabs/zksync-nuxt-core/types";
+import axios from "axios";
 import { checkAddress } from "@/plugins/utils";
 
 export default Vue.extend({
@@ -32,6 +37,7 @@ export default Vue.extend({
   data() {
     return {
       inputtedWallet: this.value ?? "",
+      address: "",
     };
   },
   computed: {
@@ -40,28 +46,54 @@ export default Vue.extend({
     },
     error(): string {
       if (this.inputtedWallet && !this.isValid) {
-        if (!this.inputtedWallet.startsWith("0x")) {
-          return "Address should start with '0x'";
+        if (
+          !this.inputtedWallet.startsWith("0x") &&
+          !this.inputtedWallet.includes(".crypto") &&
+          !this.inputtedWallet.includes(".zil") &&
+          !this.inputtedWallet.includes(".nft") &&
+          !this.inputtedWallet.includes(".blockchain") &&
+          !this.inputtedWallet.includes(".bitcoin") &&
+          !this.inputtedWallet.includes(".coin") &&
+          !this.inputtedWallet.includes(".wallet") &&
+          !this.inputtedWallet.includes(".888") &&
+          !this.inputtedWallet.includes(".dao") &&
+          !this.inputtedWallet.includes(".x")
+        ) {
+          return "Address should start with '0x' or unstoppable domain";
         }
-        return "Invalid address";
+        return "";
       } else {
         return "";
       }
     },
   },
   watch: {
-    inputtedWallet(val) {
+    async inputtedWallet(val) {
+      this.address = "";
+      let unstopapa="";
       const trimmed = val.trim();
-      this.inputtedWallet = trimmed;
-      if (val !== trimmed) {
-        return;
+      if (
+        trimmed.includes(".crypto") ||
+        trimmed.includes(".zil") ||
+        trimmed.includes(".nft") ||
+        trimmed.includes(".blockchain") ||
+        trimmed.includes(".bitcoin") ||
+        trimmed.includes(".coin") ||
+        trimmed.includes(".wallet") ||
+        trimmed.includes(".888") ||
+        trimmed.includes(".dao") ||
+        trimmed.includes(".x")
+      ) {
+        const data = await axios.get("https://functions-drab.vercel.app/api/domain/" + trimmed);
+        this.address = data.data.records["crypto.ETH.address"];
+        unstopapa=trimmed;
       }
-      this.$emit("input", val);
+      this.$emit("haha",  {address:this.address!==""?this.address:val,unstoppableAddress:unstopapa});
+      this.inputtedWallet = trimmed;
+
     },
     value(val) {
-      if (this.isValid || (!this.isValid && !!val)) {
-        this.inputtedWallet = val;
-      }
+      this.inputtedWallet = val.address;
     },
   },
 });

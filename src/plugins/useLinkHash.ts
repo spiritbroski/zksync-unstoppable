@@ -10,6 +10,7 @@ export default async ({ store, route, redirect }: Context, hash: string) => {
     const syncProvider: RestProvider = await store.dispatch("zk-provider/requestProvider");
     await store.dispatch("zk-tokens/loadZkTokens");
     const transactions: PaymentItem[] = decrypt(hash);
+   
     store.commit("checkout/setError", false);
     console.log("Transactions", transactions);
     const totalByToken = Object.fromEntries(transactions.map((e) => [e.token, 0]));
@@ -24,6 +25,7 @@ export default async ({ store, route, redirect }: Context, hash: string) => {
         token: e.token,
         amount: parseDecimal(syncProvider, e.token, e.amount.toString()),
         description: `Payment ${index + 1}`,
+        unstoppable: e.unstoppableDomain,
       })),
       feeToken: highestNumberSymbol,
       fromAddress: undefined,
